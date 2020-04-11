@@ -6,14 +6,24 @@ jobs:
     steps:
       - checkout
       - run: echo "Buildando imagem docker"
+      - run: mkdir build_output
+      - run: touch build_output/output.txt
       - run: docker build -t "$DOCKER_USER"/ansible:teste .
         #- run: docker build -t "$DOCKER_USER"/ansible:$CIRCLE_SHA1 .
+      # Persistindo o conteúdo do diretório build_output
+      - persis_to_workspace:
+          root: build_output
+          paths:
+            - '*'
 
   push:
     machine: true
 
     steps:
       - run: echo "Enviando imagem para o repositório Docker Hub"
+      - attach_workspace:
+          at: ~/repo/workspace
+      - run: ls -lh ~/repo/workspace/
       - run: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
       - run: docker images  
         #- run: docker push $DOCKER_USER/ansible:teste

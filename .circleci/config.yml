@@ -27,7 +27,7 @@ workflows:
       - push:
           requires:
             - build
-          filters:
-            branch:
-              ignore:
-                - master
+        # filters:
+        #   branch:
+        #     ignore:
+        #       - master

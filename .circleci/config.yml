@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    context: docker
+    context: dockerss
     machine: true
 
     steps:

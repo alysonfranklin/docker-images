@@ -8,6 +8,7 @@ jobs:
       - checkout
       - run: echo "iniciando build da imagem docker."
       - run: echo "$DOCKER_USER"
+      - run: echo $DOCKER_USER
         # run: docker build -t "$DOCKER_USER"/ansible:$CIRCLE_SHA1 .
 
   push:

@@ -15,7 +15,8 @@ jobs:
     steps:
       - run: echo "Enviando imagem para o repositório Docker Hub"
       - run: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-      - run: docker push $DOCKER_USER/ansible:teste
+      - run: docker images  
+        #- run: docker push $DOCKER_USER/ansible:teste
         #- run: docker push $DOCKER_USER/ansible:$CIRCLE_SHA1
 
 workflows:

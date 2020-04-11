@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run: echo "iniciando build da imagem docker."
-      # run: docker build -t alysonfranklin/ansible:$CIRCLE_SHA1
+      - run: docker build -t alysonfranklin/ansible:$CIRCLE_SHA1
 
   push:
     machine: true

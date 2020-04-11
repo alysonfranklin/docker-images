@@ -1,15 +1,16 @@
 version: 2
 jobs:
   build:
-    context: dockerss
+    context: docker
     machine: true
 
     steps:
       - checkout
       - run: echo "iniciando build da imagem docker."
-      - run: docker build -t alysonfranklin/ansible:$CIRCLE_SHA1 .
+      - run: docker build -t $DOCKER_USER/ansible:$CIRCLE_SHA1 .
 
   push:
+    context: docker
     machine: true
 
     steps:

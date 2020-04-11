@@ -26,6 +26,8 @@ workflows:
       - build
       - approve
           type: approval
+          requires:
+            - build
       - push:
           requires:
             - build

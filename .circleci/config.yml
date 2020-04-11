@@ -30,7 +30,7 @@ workflows:
             - build
       - push:
           requires:
-            - build
+            - approve
         # filters:
         #   branch:
         #     ignore:

@@ -25,6 +25,7 @@ workflows:
     jobs:
       - build
       - push:
+          type: approval
           requires:
             - build
         # filters:

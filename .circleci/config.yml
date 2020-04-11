@@ -24,7 +24,7 @@ workflows:
   build-and-push:
     jobs:
       - build
-      - approve
+      - approve:
           type: approval
           requires:
             - build
@@ -35,3 +35,4 @@ workflows:
         #   branch:
         #     ignore:
         #       - master
+

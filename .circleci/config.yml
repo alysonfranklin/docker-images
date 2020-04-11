@@ -5,28 +5,10 @@ jobs:
 
     steps:
       - checkout
-      - run: echo "Buildando imagem docker"
-      - run: mkdir build_output
-      - run: touch build_output/output.txt
       - run: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-      - run: docker build -t "$DOCKER_USER"/ansible:$CIRCLE_SHA1 .
-      - run: docker push $DOCKER_USER/ansible:$CIRCLE_SHA1
-      
-      # Persistindo o conteúdo do diretório build_output
-      - persist_to_workspace:
-          root: build_output
-          paths:
-            - '*'
-  push:
-    machine: true
-
-    steps:
-      - run: echo "Enviando imagem para o repositório Docker Hub"
-      - attach_workspace:
-          at: ~/repo/workspace
-      - run: ls -lh ~/repo/workspace/
-      # run: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-      # run: docker images  
+      - run: echo "Iniciando build da imagem docker..."
+      - run: echo $GIT_COMMIT_DESC
+      # run: docker build -t "$DOCKER_USER"/ansible:$CIRCLE_SHA1 .
       # run: docker push $DOCKER_USER/ansible:$CIRCLE_SHA1
 
 workflows:
@@ -41,8 +23,3 @@ workflows:
       - push:
           requires:
             - approve
-        # filters:
-        #   branch:
-        #     ignore:
-        #       - master
-

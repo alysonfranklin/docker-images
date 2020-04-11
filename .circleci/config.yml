@@ -6,10 +6,13 @@ jobs:
     steps:
       - checkout
       - run: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+      - run:
+          command: |
+            echo 'export IMAGE_TAG=$(git log --format=oneline -n 1 | cut -c 1-7)' >> $BASH_ENV
+            source $BASH_ENV
       - run: echo "Iniciando build da imagem docker..."
-      - run: echo $COMMIT_HASH
-      # run: docker build -t "$DOCKER_USER"/ansible:$CIRCLE_SHA1 .
-      # run: docker push $DOCKER_USER/ansible:$CIRCLE_SHA1
+      - run: docker build -t $DOCKER_USER/ansible:$IMAGE_TAG .
+      - run: docker push $DOCKER_USER/ansible:$IMAGE_TAG
 
 workflows:
   version: 2

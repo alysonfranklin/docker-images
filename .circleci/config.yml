@@ -1,24 +1,20 @@
 version: 2
 jobs:
   build:
-    context: docker
     machine: true
 
     steps:
       - checkout
-      - run: echo "iniciando build da imagem docker."
-      - run: echo "$DOCKER_USER"
-      - run: echo $DOCKER_USER
-        # run: docker build -t "$DOCKER_USER"/ansible:$CIRCLE_SHA1 .
+      - run: echo "Buildando imagem docker"
+      - run: docker build -t "$DOCKER_USER"/ansible:$CIRCLE_SHA1 .
 
   push:
-    context: docker
     machine: true
 
     steps:
       - run: echo "Enviando imagem para o repositório Docker Hub"
-        # run: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-        # run: docker push alysonfranklin/ansible:$CIRCLE_SHA1
+      - run: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+      - run: docker push $DOCKER_USER/ansible:$CIRCLE_SHA1
 
 workflows:
   version: 2

@@ -2,7 +2,6 @@ version: 2
 jobs:
   build:
     machine: true
-    working_directory: ../
 
     steps:
       - checkout
@@ -11,7 +10,6 @@ jobs:
 
   push:
     machine: true
-    working_directory: ../
 
     steps:
       - run: echo "Enviando imagem para o repositório Docker Hub"

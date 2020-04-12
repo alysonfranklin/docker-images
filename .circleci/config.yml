@@ -18,8 +18,8 @@ workflows:
   version: 2
   docker-build:
     jobs:
-      - build
-    filters:
-      branches:
-        ignore:
-          - master
+      - build:
+          filters:
+            branches:
+              ignore:
+                - master
